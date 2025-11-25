@@ -1,0 +1,658 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Analysis - 192.229.221.95</title>
+    <style>
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --success: #4cc9f0;
+            --warning: #f72585;
+            --danger: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-content {
+            padding: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1rem;
+        }
+
+        .threat-level {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .threat-high {
+            background-color: rgba(230, 57, 70, 0.1);
+            color: var(--danger);
+        }
+
+        .threat-medium {
+            background-color: rgba(247, 37, 133, 0.1);
+            color: var(--warning);
+        }
+
+        .threat-low {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+        }
+
+        .threat-clean {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .error-message {
+            background-color: rgba(230, 57, 70, 0.1);
+            color: var(--danger);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .online-search-output {
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-top: 15px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9rem;
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+        }
+
+        .search-result-item {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .search-result-link {
+            color: var(--primary);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            word-break: break-all;
+        }
+
+        .search-result-snippet {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .search-result-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IP Analysis Tool</h1>
+            <p class="subtitle">Comprehensive IP address analysis report</p>
+        </header>
+
+        
+        <div class="section">
+            <div class="section-header">
+                <h2>Basic Information</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">IP Address</span>
+                        <span class="info-value">192.229.221.95</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">IP Version</span>
+                        <span class="info-value">IPv4</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Reverse DNS</span>
+                        <span class="info-value">Not found</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Type</span>
+                        <span class="info-value">Public</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Bogon</span>
+                        <span class="info-value">No</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Private</span>
+                        <span class="info-value">No</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Loopback</span>
+                        <span class="info-value">No</span>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: var(--border-radius);">
+                    <h3 style="margin-bottom: 10px;">Classification Summary</h3>
+                    <span>Public Range</span>
+                </div>
+            </div>
+        </div>
+    
+
+        
+        <div class="section">
+            <div class="section-header">
+                <h2>Network Information</h2>
+            </div>
+            <div class="section-content">
+                
+            <div style="margin-bottom: 25px;">
+                <h3>ASN Information</h3>
+                <div class="info-item">
+                    <span class="info-value">ASN information not available</span>
+                </div>
+            </div>
+        
+                
+            <div>
+                <h3>RDAP Registration</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Registry</span>
+                        <span class="info-value">ARIN</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Network Handle</span>
+                        <span class="info-value">NET-192-229-128-0-1</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Network Name</span>
+                        <span class="info-value">EDGECAST-NETBLK-08</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">IP Range</span>
+                        <span class="info-value">192.229.128.0 - 192.229.255.255</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">CIDR</span>
+                        <span class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Country</span>
+                        <span class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Status</span>
+                        <span class="info-value">active</span>
+                    </div>
+                </div>
+            </div>
+        
+            </div>
+        </div>
+    
+
+        
+        <div class="section">
+            <div class="section-header">
+                <h2>Reputation Analysis</h2>
+            </div>
+            <div class="section-content">
+                
+            <div style="margin-bottom: 25px;">
+                <h3>AbuseIPDB Analysis</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Threat Level</span>
+                        <span class="info-value"><span class="threat-level threat-clean">CLEAN</span></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Abuse Confidence</span>
+                        <span class="info-value">0%</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total Reports</span>
+                        <span class="info-value">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Distinct Users</span>
+                        <span class="info-value">0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Whitelisted</span>
+                        <span class="info-value">Yes</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Country</span>
+                        <span class="info-value">United States of America</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">ISP</span>
+                        <span class="info-value">Edgecast Inc.</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Usage Type</span>
+                        <span class="info-value">None</span>
+                    </div>
+                </div>
+            </div>
+        
+                
+            <div>
+                <h3>VirusTotal Analysis</h3>
+                <div class="stats-grid" style="margin-bottom: 20px;">
+                    <div class="stat-card">
+                        <div class="stat-value">62</div>
+                        <div class="stat-label">Harmless</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Malicious</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">1</div>
+                        <div class="stat-label">Suspicious</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">1.1%</div>
+                        <div class="stat-label">Threat Level</div>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Reputation Score</span>
+                        <span class="info-value">42</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">AS Owner</span>
+                        <span class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">ASN</span>
+                        <span class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Country</span>
+                        <span class="info-value">US</span>
+                    </div>
+                </div>
+            </div>
+        
+            </div>
+        </div>
+    
+
+        
+        <div class="section">
+            <div class="section-header">
+                <h2>Online Search</h2>
+            </div>
+            <div class="section-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">30</div>
+                        <div class="stat-label">Total Mentions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Search Variations</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">30</div>
+                        <div class="stat-label">Unique Domains</div>
+                    </div>
+                </div>
+                
+                <h3>Summary</h3>
+                <div class="online-search-output">
+ONLINE SEARCH RESULTS FOR: 192.229.221.95
+============================================================
+Total unique mentions found: 30
+Search variations used: 5
+Unique domains found: 30
+
+QUERY: '"192.229.221.95"' (20 results)
+----------------------------------------
+1. conhost.exe connecting to unknown IPs - Microsoft Q&A
+   https://learn.microsoft.com/en-us/answers/questions/4148129/conhost-exe-connecting-to-unknown-ips
+   Apr 26, 2023 ... ... ,.exe process is trying to connect to (apparently) random IPs (today it was 192...
+
+2. IP address - 192.229.221.95 - VirusTotal
+   https://www.virustotal.com/gui/ip-address/192.229.221.95
+   Join our Community and enjoy additional community insights and crowdsourced detections, plus an API ...
+
+3. 192.229.221.95 | Los Angeles & VPN Not Detected - IPinfo.io
+   https://ipinfo.io/192.229.221.95
+   Get Details for IP 192.229.221.95: Hosted by , located in Los Angeles, California, United States. Vi...
+
+QUERY: '"192[.]229[.]221[.]95"' (3 results)
+----------------------------------------
+1. Demystification 8Base- Threat Hunting and Detection Opportunities ...
+   https://detect.fyi/demystification-8base-threat-hunting-and-detection-opportunities-44c55c4c5667
+   Feb 25, 2024 ... Document contains OLE streams with names of living off the land binaries. 40[.]119[...
+
+2. 192.229.221.95 WHOIS IP Address Lookup - Who.is
+   https://who.is/whois-ip/ip-address/192.229.221.95
+   192.229.221.95 IP address whois lookup. IP address whois, ownership, registration, and technical inf...
+
+3. Malware analysis “kurs trajnimi.zip” | AKSK
+   https://aksk.gov.al/wp-content/uploads/2024/04/Spear-Phishing_Malware-analysis-kurs-trajnimi.zip-ScreenConnectWindows.pdf
+   Nov 30, 2023 ... • 192[.]229[.]221[.]95. • 147[.]28[.]129[.]152. DOMAIN: instance-s1t9su-relay[.]scr...
+
+QUERY: '"192.229.221[.]95"' (7 results)
+----------------------------------------
+1. Automated Malware Analysis Report for http://storefront-api ...
+   https://www.joesandbox.com/analysis/827316/0/lighthtml?download=1
+   ... 192.229.221.95. Source: unknown, TCP traffic detected without corresponding DNS query: 192.229.2...
+
+2. Brain Cipher Ransomware Group exploited CVE-2023-28252 ...
+   https://www.linkedin.com/posts/rakesh-krishnan-6179a94b_braincipher-ransomware-brain-activity-7230471679741718528-Bmbx
+   Aug 17, 2024 ... ... 192.229.221[.]95 192.229.211[.]108 20.99.133[.]109 20.99.184[.]37 20.99.186[.]2...
+
+3. Automated Malware Analysis Report for tv.exe - Generated by Joe ...
+   https://www.joesandbox.com/analysis/1474028/0/html
+   192.229.221.95. https://srgservices.viisolutions.com.au/digital/dd.aspx?c=63781612303807197&h=0xc84e...
+
+                </div>
+                
+                <h3>Detailed Search Results</h3>
+                <div class="search-result-item">
+                    <div class="search-result-title">conhost.exe connecting to unknown IPs - Microsoft Q&A</div>
+                    <div class="search-result-link"><a href="https://learn.microsoft.com/en-us/answers/questions/4148129/conhost-exe-connecting-to-unknown-ips" target="_blank">https://learn.microsoft.com/en-us/answers/questions/4148129/conhost-exe-connecting-to-unknown-ips</a></div>
+                    <div class="search-result-snippet">Apr 26, 2023 ... ... ,.exe process is trying to connect to (apparently) random IPs (today it was 192.229.221.95). I ran a malware + AV scan but no…</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">IP address - 192.229.221.95 - VirusTotal</div>
+                    <div class="search-result-link"><a href="https://www.virustotal.com/gui/ip-address/192.229.221.95" target="_blank">https://www.virustotal.com/gui/ip-address/192.229.221.95</a></div>
+                    <div class="search-result-snippet">Join our Community and enjoy additional community insights and crowdsourced detections, plus an API key to automate checks. Security vendors' ...</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">192.229.221.95 | Los Angeles & VPN Not Detected - IPinfo.io</div>
+                    <div class="search-result-link"><a href="https://ipinfo.io/192.229.221.95" target="_blank">https://ipinfo.io/192.229.221.95</a></div>
+                    <div class="search-result-snippet">Get Details for IP 192.229.221.95: Hosted by , located in Los Angeles, California, United States. View ranges, ASN info, and related IPs.</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">Trojan | fp2e7a.wpc.phicdn.net | 192.229.221.95 - Website Blocking ...</div>
+                    <div class="search-result-link"><a href="https://forums.malwarebytes.com/topic/305247-trojan-fp2e7awpcphicdnnet-19222922195/" target="_blank">https://forums.malwarebytes.com/topic/305247-trojan-fp2e7awpcphicdnnet-19222922195/</a></div>
+                    <div class="search-result-snippet">Dec 5, 2023 ... ... Category: Trojan Domain: fp2e7a.wpc.phicdn.net IP Address: 192.229.221.95 Port: 80 Type: Outbound File: C:\Windows\System32\sv...</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">192.229.221.95 | Edgecast Inc. | AbuseIPDB</div>
+                    <div class="search-result-link"><a href="https://www.abuseipdb.com/check/192.229.221.95" target="_blank">https://www.abuseipdb.com/check/192.229.221.95</a></div>
+                    <div class="search-result-snippet">192.229.221.95 is an IP address from within our whitelist, which we identify as "DigiCert OCSP / CRL". Whitelisted netblocks are typically owned by tr...</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">New Dedicated IP Addresses</div>
+                    <div class="search-result-link"><a href="https://knowledge.digicert.com/alerts/new-dedicated-ip-addresses" target="_blank">https://knowledge.digicert.com/alerts/new-dedicated-ip-addresses</a></div>
+                    <div class="search-result-snippet">Mar 12, 2024 ... 192.229.221.95; 152.195.38.76; 192.16.49.85. TLS CRL. crl3.digicert.com. crl4.digicert.com. cdp.thawte.com. cdp.geotrust.com. cdp.rap...</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">WHOIS 192.229.221.95 | Edgecast Inc. | AbuseIPDB</div>
+                    <div class="search-result-link"><a href="https://www.abuseipdb.com/whois/192.229.221.95" target="_blank">https://www.abuseipdb.com/whois/192.229.221.95</a></div>
+                    <div class="search-result-snippet">192.229.221.95 IP Address Information. ISP, Edgecast Inc. Usage Type, -. Domain Name, uplynk.com. Country, United States of America. City, Los Angeles...</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">192.229.221.95 spam report</div>
+                    <div class="search-result-link"><a href="https://cleantalk.org/blacklists/192.229.221.95" target="_blank">https://cleantalk.org/blacklists/192.229.221.95</a></div>
+                    <div class="search-result-snippet">IP 192.229.221.95 has spam activity on 4 websites, history spam attacks. Block Lists & Public IPs, Emails abuse reports. Learn more.</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">Malware analysis 192.229.221.95 Malicious activity | ANY.RUN ...</div>
+                    <div class="search-result-link"><a href="https://any.run/report/bcda9caca171c027e5a4840422bad5d171d2f5b196acc527288821748c8632db/3cbc5e63-651d-4848-b6a5-89cce9963cf4" target="_blank">https://any.run/report/bcda9caca171c027e5a4840422bad5d171d2f5b196acc527288821748c8632db/3cbc5e63-651d-4848-b6a5-89cce9963cf4</a></div>
+                    <div class="search-result-snippet">Jan 30, 2024 ... Online sandbox report for 192.229.221.95, verdict: Malicious activity.</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+                <div class="search-result-item">
+                    <div class="search-result-title">IPv4: 192.229.221.95 - LevelBlue - Open Threat Exchange</div>
+                    <div class="search-result-link"><a href="https://otx.alienvault.com/indicator/ip/192.229.221.95" target="_blank">https://otx.alienvault.com/indicator/ip/192.229.221.95</a></div>
+                    <div class="search-result-snippet">... mx2dm1m.dns0.org, 200, 192.229.221.95. SHOWING 1 TO 10 OF 114 ENTRIES. 1. 2. 3. 4. 5 ... 12. Next. Associated Files. Show. 10, 25, 50, 100. entrie...</div>
+                    <div class="search-result-meta">
+                        <span>Query: "192.229.221.95"</span>
+                        <span>Found: 2025-11-25T02:59</span>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    
+
+        
+        <div class="section">
+            <div class="section-header">
+                <h2>Analysis Summary</h2>
+            </div>
+            <div class="section-content">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">IP Address</span>
+                        <span class="info-value">192.229.221.95</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Overall Threat Level</span>
+                        <span class="info-value"><span class="threat-level threat-low">LOW THREAT</span></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Organization</span>
+                        <span class="info-value">Unknown</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Country</span>
+                        <span class="info-value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Registry</span>
+                        <span class="info-value">ARIN</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Abuse Confidence</span>
+                        <span class="info-value">0%</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">VirusTotal Detections</span>
+                        <span class="info-value">0 malicious, 1 suspicious</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Online Mentions</span>
+                        <span class="info-value">30 found</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+        <footer>
+            <p>IP Profiler Tool &copy; 2025 | Generated on 2025-11-25 02:59:37</p>
+        </footer>
+    </div>
+</body>
+</html>
+    
