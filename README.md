@@ -104,9 +104,9 @@ export ABUSEIPDB_API_KEY="YOUR_KEY"
 ```
 
  **3. Google Custom Search Engine (CSE)**
-Your provided credentials:
-- **API Key:** `AIzaSyBqExeS_6JDeqxich3MPnfnF4CNkyT64oo`
-- **Search Engine ID:** `93cbe98d182804bc3`
+ Provided credentials:
+- **API Key:** `A******************************************o`
+- **Search Engine ID:** `9*********************3`
 
 Documentation steps:
 1. Visit https://cse.google.com
