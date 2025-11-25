@@ -1389,7 +1389,7 @@ def generate_html_report(results):
         {summary_html}
 
         <footer>
-            <p>IP Analysis Tool &copy; 2023 | Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+            <p>IP Profiler Tool &copy; 2025 | Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
         </footer>
     </div>
 </body>
@@ -1900,4 +1900,5 @@ def main():
             
             print(f"Data saved to {filename}")
 if __name__ == "__main__":
+
     main()
