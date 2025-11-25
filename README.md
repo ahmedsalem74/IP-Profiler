@@ -219,12 +219,12 @@ Security Notes
 
 ---
 
-Future Roadmap
+#Future Roadmap
 IP Profiler will expand into a full threat-intelligence engine.
 
 **Planned Features**
 
-🔒 SSL/TLS Correlation
+SSL/TLS Correlation
 
 * Fetch SSL certificate from IP (if HTTPS)
 * Parse:
